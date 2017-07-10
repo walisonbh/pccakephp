@@ -1,0 +1,52 @@
+.title-area h1{
+	margin: 3px;
+}
+
+.title-area {
+	background: #01545b;
+}
+
+.title-area a {
+	color: #FFF;
+}
+
+.title-area a:active {
+	color: #FFF;
+}
+
+.title-area a:hover {
+	color: #FFF;
+}
+
+#cake-links{
+	text-align: right;
+	padding-top: 12px;
+}
+
+#cake-links ul li {
+	display:inline;
+	margin-right: 3px;
+}
+
+.btn {
+	margin-right: 3px;
+}
+
+.estado input {
+	width: 70%;
+}
+
+.cidade input {
+	width: 70%;
+}
+
+#foto .img-rounded{
+
+}
+
+#foto .div-foto{
+	background-color: #DEDED5;
+	display: block;
+	height: 350px;
+	width: 350px;
+}

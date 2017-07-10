@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/www/pccakephp/webroot/css/cake.css</file>
+            <file>file:/C:/www/pccakephp/src/Controller/FuncionariosController.php</file>
+            <file>file:/C:/www/pccakephp/src/Template/Funcionarios/cadastrar.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/breve_descricao.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Funcionarios/index.ctp</file>
+            <file>file:/C:/www/pccakephp/config/bootstrap.php</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/foto.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/anexos.ctp</file>
+            <file>file:/C:/www/pccakephp/config/app.php</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/formacao.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/endereco.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/dependentes.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Controller/AppController.php</file>
+            <file>file:/C:/www/pccakephp/src/Controller/PaisesController.php</file>
+            <file>file:/C:/www/pccakephp/src/Template/Funcionarios/editar.ctp</file>
+            <file>file:/C:/www/pccakephp/src/Template/Element/Funcionarios/dados_basicos.ctp</file>
+        </group>
+    </open-files>
+</project-private>
