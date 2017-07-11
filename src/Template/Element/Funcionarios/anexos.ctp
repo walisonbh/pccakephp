@@ -162,8 +162,8 @@ echo $this->Modal->create("Adicionar Memorando", ['id' => 'modal-memorando']);
 echo $this->Form->file('memorando_', ['id' => 'memorando-bytes']);
 
 echo $this->Modal->end([
-	$this->Form->button('Salvar', ['bootstrap-type' => 'primary', 'id' => 'salvar-memorando']),
-	$this->Form->button('Cancelar', ['data-dismiss' => 'modal'])
+	$this->Html->link('Salvar', '#', ['class' => 'btn btn-primary', 'bootstrap-type' => 'primary', 'id' => 'salvar-memorando']),
+	$this->Html->link('Cancelar', '#', ['class' => 'btn btn-default', 'data-dismiss' => 'modal'])
 ]);
 
 // Modal Oficio
@@ -172,7 +172,7 @@ echo $this->Modal->create("Adicionar Ofício", ['id' => 'modal-oficio']);
 echo $this->Form->file('oficio_', ['id' => 'oficio-bytes']);
 
 echo $this->Modal->end([
-	$this->Form->button('Salvar', ['bootstrap-type' => 'primary', 'id' => 'salvar-oficio']),
-	$this->Form->button('Cancelar', ['data-dismiss' => 'modal'])
+	$this->Html->link('Salvar', '#', ['class' => 'btn btn-primary', 'bootstrap-type' => 'primary', 'id' => 'salvar-oficio']),
+	$this->Html->link('Cancelar', '#', ['class' => 'btn btn-default', 'data-dismiss' => 'modal'])
 ]);
 ?>

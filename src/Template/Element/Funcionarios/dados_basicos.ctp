@@ -39,5 +39,5 @@ echo $this->Form->control('salario', ['label' => 'Salário']);
 echo $this->Form->control('pais_', ['label' => 'País', 'id' => 'pais', 'append' => '<span class="glyphicon glyphicon-search" id="span-pesquisar-pais" aria-hidden="true"></span>']);
 echo $this->Form->control('estado_', ['id' => 'estado', 'append' => '<span class="glyphicon glyphicon-search" id="span-pesquisar-estado" aria-hidden="true"></span>']);
 echo $this->Form->control('cidade_', ['id' => 'cidade', 'append' => '<span class="glyphicon glyphicon-search" id="span-pesquisar-cidade" aria-hidden="true"></span>']);
-echo $this->Form->control('Estado Civil');
-echo $this->Form->control('Tem Filhos', ['type' => 'checkbox']);
+echo $this->Form->control('estadocivil', ['label' => 'Estado Civil']);
+echo $this->Form->control('temfilhos', ['type' => 'checkbox', 'label' => 'Tem Filhos']);

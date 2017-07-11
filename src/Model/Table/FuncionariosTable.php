@@ -46,17 +46,25 @@ class FuncionariosTable extends Table {
 			'foreignKey' => 'cidade_id',
 			'joinType' => 'INNER'
 		]);
+
+		$this->hasMany('Anexos', [
+			'foreignKey' => 'anexo_id',
+			'saveStrategy' => 'replace'
+		]);
 		
 		$this->hasMany('Dependentes', [
 			'foreignKey' => 'funcionario_id',
+			'saveStrategy' => 'replace'
 		]);
 
 		$this->hasMany('FuncionariosCursos', [
 			'foreignKey' => 'funcionario_id',
+			'saveStrategy' => 'replace'
 		]);
 
 		$this->hasMany('FuncionariosLogradouros', [
 			'foreignKey' => 'funcionario_id',
+			'saveStrategy' => 'replace'
 		]);
 	}
 

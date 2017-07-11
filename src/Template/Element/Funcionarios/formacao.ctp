@@ -5,7 +5,7 @@ function linhaTabelaCursos(identificador, nome){
 		"	<td class=\"cursos-nome\">" + nome + "</td>" +
 		"	<td class=\"text-center\">" +
 		"		<a href=\"#\" id=\"cursos-apagar-" + identificador + "\"  class=\"btn btn-danger\">Apagar</a>" +
-		"		<input type=\"hidden\" name=\"funcionarios_cursos[curso_id]\" value=\"" + identificador + "\"/>" +
+		"		<input type=\"hidden\" name=\"funcionarios_cursos[" + identificador + "][curso_id]\" value=\"" + identificador + "\"/>" +
 		"	</td>" +
 		"</tr>";
 
@@ -26,7 +26,7 @@ $(function(){
 });
 </script>
 <h2>Formação</h2>
-<?php echo $this->Form->button('Adicionar Curso', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#modal-adicionar-cursos']); ?>
+<?php echo $this->Html->link('Adicionar Curso', '#', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#modal-adicionar-cursos']); ?>
 <table id="formacao" class="table">
 	<thead>
 		<tr>
@@ -43,7 +43,7 @@ $(function(){
 			<td><?php echo $curso->nome ?></td>
 			<td class="text-center" width="300">
 				<?php echo $this->Html->link('Apagar', '#', ['id' => 'cursos-apagar-' . $curso->id, 'class' => 'btn btn-danger']); ?>
-				<?php echo $this->Form->hidden('funcionarios_cursos.curso_id') ?>
+				<?php echo $this->Form->hidden('funcionarios_cursos.' . $indice0 . '.curso_id') ?>
 			</td>
 		</tr>
 		<?php
@@ -58,6 +58,6 @@ echo $this->Modal->create("Adicionar Cursos", ['id' => 'modal-adicionar-cursos']
 echo $this->Form->control('cursos', ['empty' => true]);
 
 echo $this->Modal->end([
-	$this->Form->button('Salvar', ['bootstrap-type' => 'primary', 'id' => 'salvar-curso']),
-	$this->Form->button('Cancelar', ['data-dismiss' => 'modal'])
+	$this->Html->link('Salvar', '#', ['class' => 'btn btn-primary', 'bootstrap-type' => 'primary', 'id' => 'salvar-curso']),
+	$this->Html->link('Cancelar', '#', ['class' => 'btn btn-default', 'data-dismiss' => 'modal'])
 ]);

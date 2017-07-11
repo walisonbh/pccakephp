@@ -122,6 +122,6 @@ echo $this->Form->control('dependentes.nome_', ['id' => 'dependentes-nome']);
 echo $this->Form->file('dependentes.bytes_', ['id' => 'dependentes-bytes']);
 
 echo $this->Modal->end([
-	$this->Form->button('Salvar', ['bootstrap-type' => 'primary', 'id' => 'salvar-dependente']),
-	$this->Form->button('Cancelar', ['data-dismiss' => 'modal'])
+	$this->Html->link('Salvar', '#', ['class' => 'btn btn-primary', 'bootstrap-type' => 'primary', 'id' => 'salvar-dependente']),
+	$this->Html->link('Cancelar', '#', ['class' => 'btn btn-default', 'data-dismiss' => 'modal'])
 ]);

@@ -21,6 +21,7 @@ $(function(){
 <?php
 echo $this->Form->hidden('funcionarios_logradouros.logradouro_id', ['id' => 'endereco-id']);
 echo $this->Form->control('cep', ['label' => 'CEP', 'id' => 'logradouros-cep']);
+echo $this->Form->control('funcionarios_logradouros.numero', ['label' => 'Número', 'id' => 'logradouros-cep']);
 ?>
 <dl>
 	<dt>Logradouro</dt>

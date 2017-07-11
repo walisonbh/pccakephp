@@ -15,7 +15,7 @@ class FuncionariosController extends AppController {
 	 * 
 	 */
 	public function index() {
-		$this->set('funcionarios', $this->Funcionarios->find('all'));
+		$this->set('funcionarios', $this->Funcionarios->find('all')->contain(['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']));
 //		$this->request->session()->destroy();
 	}
 
@@ -28,18 +28,19 @@ class FuncionariosController extends AppController {
 		$funcionario = $this->Funcionarios->newEntity();
 
 		if ($this->request->is('post')) {
-			$this->Funcionarios->patchEntities($funcionario, $this->request->getData());
-			if ($this->Funcionarios->save($funcionario)) {
-				$this->Flash->success('O país foi salvo com sucesso!');
+			$session = (count($this->request->session()->read($this->request->getData('uuid'))) > 0) ? $this->request->session()->read($this->request->getData('uuid')) : [];
+			$dadosSalvar = array_merge($this->request->getData(), $session);
+
+			$funcionario = $this->Funcionarios->patchEntity($funcionario, $dadosSalvar, ['associated' => ['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']]);
+			if ( $this->Funcionarios->save($funcionario) ) {
+				$this->Flash->success('O funcionário foi salvo com sucesso!');
 				$this->request->session()->delete('funcionario.' . $this->request->getData['uuid']);
 				$this->redirect('/index');
 			} else
-				$this->Flash->error('Houve um erro ao tentar salvar o país.');
+				$this->Flash->error('Houve um erro ao tentar salvar os dados do funcionário.');
 		}
 
 		$uuid = uniqid("uuidf");
-//		$this->request->session()->destroy();
-//		$this->request->session()->write('funcionario.' . $uuid, []);
 		
 		// Relacionamentos com funcionário
 		$cursos = $this->Funcionarios->FuncionariosCursos->Cursos->find('list');

@@ -1,6 +1,7 @@
+<?php echo $this->Form->create($funcionario); ?>
 <div>
 	<?php
-	echo $this->Html->link('Salvar', '#', ['class' => 'btn btn-primary']);
+	echo $this->Form->button('Salvar', ['class' => 'btn btn-primary']);
 	echo $this->Html->link('Novo', '#', ['class' => 'btn btn-success']);
 	echo $this->Html->link('Apagar', '#', ['class' => 'btn btn-danger']);
 	echo $this->Html->link('Abrir', '#', ['class' => 'btn btn-info']);
@@ -15,7 +16,6 @@
 	<li><a href="#anexos" data-toggle="tab">Anexos</a></li>
 	<li><a href="#dependentes" data-toggle="tab">Dependentes</a></li>
 </ul>
-<?php echo $this->Form->create($funcionario); ?>
 <?php echo $this->Form->hidden('uuid', ['value' => $uuid]); ?>
 <div class="tab-content">
 	<div id="dados-basicos" class="tab-pane fade in active">
