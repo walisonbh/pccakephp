@@ -28,10 +28,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 		<?= $this->Html->css('cake') ?>
 
 		<?php
-		echo $this->Html->css('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+		echo $this->Html->css([
+			'bootstrap.min.css',
+			'bootcomplete.css'
+		]);
 		echo $this->Html->script([
-			'https://code.jquery.com/jquery-1.12.4.min.js',
-			'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+			'jquery-3.2.1.min',
+			'bootstrap.min',
+			'jquery.bootcomplete'
 		]);
 		?>
 

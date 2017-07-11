@@ -158,7 +158,7 @@ class FuncionariosController extends AppController {
 				$anexos[$uuid] = $resposta;
 				
 				$this->request->session()->write($this->request->getData('uuid') . '.anexos', $anexos);
-			} catch (Exception $ex) {
+			} catch (\Exception $ex) {
 				$this->response = $this->response->withStatus($ex->getCode());
 				$resposta = ['erro' => ['mensagem' => $ex->getMessage()]];
 			}
@@ -213,7 +213,7 @@ class FuncionariosController extends AppController {
 
 				// Sobrescrevendo o array de dependentes
 				$this->request->session()->write($this->request->getData('uuid') . '.dependentes', $dependentes);
-			} catch (Exception $ex) {
+			} catch (\Exception $ex) {
 				$this->response = $this->response->withStatus($ex->getCode());
 				$resposta = ['erro' => ['mensagem' => $ex->getMessage()]];
 			}

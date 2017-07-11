@@ -7,21 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * TbLogradouros Model
+ * Logradouros Model
  *
- * @property \App\Model\Table\TbBairrosTable|\Cake\ORM\Association\BelongsTo $TbBairros
+ * @property \App\Model\Table\BairrosTable|\Cake\ORM\Association\BelongsTo $Bairros
  *
- * @method \App\Model\Entity\TbLogradouro get($primaryKey, $options = [])
- * @method \App\Model\Entity\TbLogradouro newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\TbLogradouro[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\TbLogradouro|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\TbLogradouro patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\TbLogradouro[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\TbLogradouro findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Logradouro get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Logradouro newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Logradouro[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Logradouro|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Logradouro patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Logradouro[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Logradouro findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class TbLogradourosTable extends Table
+class LogradourosTable extends Table
 {
 
     /**
@@ -40,7 +40,7 @@ class TbLogradourosTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('TbBairros', [
+        $this->belongsTo('Bairros', [
             'foreignKey' => 'bairro_id',
             'joinType' => 'INNER'
         ]);
@@ -78,7 +78,7 @@ class TbLogradourosTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['bairro_id'], 'TbBairros'));
+        $rules->add($rules->existsIn(['bairro_id'], 'Bairros'));
 
         return $rules;
     }

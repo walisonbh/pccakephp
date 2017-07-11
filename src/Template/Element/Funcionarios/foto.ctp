@@ -44,6 +44,7 @@ $(function(){
 	});
 });
 </script>
+<h2>Foto</h2>
 <?php
 echo $this->Html->link('Enviar Imagem', '#', ['id' => 'enviar-foto', 'class' => 'btn btn-primary']);
 echo $this->Html->tag('div', $this->Html->image('cake-logo.png', ['id' => 'funcionario-imagem', 'class' => "img-rounded"]));

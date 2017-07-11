@@ -9,11 +9,11 @@ namespace App\Controller;
  * @property PaisesTable $Paises Description
  */
 class PaisesController extends AppController {
-/**
- * 
- * 
- * 
- */
+	public function initialize() {
+		parent::initialize();
+		$this->loadComponent('RequestHandler');
+	}
+
 	public function index() {
 		$this->set('paises', $this->paginate('Paises'));
 	}
@@ -50,5 +50,29 @@ class PaisesController extends AppController {
 		$pais = $this->Paises->get($this->request->getData('id'));
 		
 		$this->set('pais', $pais);
+	}
+
+	public function ajaxPesquisarPaises(){
+		$this->viewBuilder()->autoLayout(false);
+
+		$this->response->type('json');
+		
+		$conditions = [];
+		$retorno = [];
+
+		if( $this->request->getData('pais') != '' )
+			$conditions = ['nome LIKE \'%' . $this->request->getData('pais') . '%\''];
+
+		$paises = $this->Paises->find('all', ['conditions' => $conditions]);
+
+		$i = 0;
+		foreach($paises as $pais){
+			$retorno[$i]['id'] = $pais['id'];
+			$retorno[$i]['label'] = $pais['nome'];
+			
+			$i++;
+		}
+
+		$this->set('_serialize', json_encode($retorno));
 	}
 }

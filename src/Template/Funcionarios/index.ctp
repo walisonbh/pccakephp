@@ -14,9 +14,9 @@ echo $this->Form->create(null, ['horizontal' => true, 'id' => 'form-pesquisar-fu
 	<div class="col-md-4"><?php echo $this->Form->control('matricula', ['placeholder' => 'Matrícula', 'label' => false]); ?></div>
 </div>
 <div class="row">
-	<div class="col-md-4"><?php echo $this->Form->control('pais', ['placeholder' => 'País', 'label' => false, 'append' => '<span class"glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
-	<div class="col-md-4"><?php echo $this->Form->control('estado', ['placeholder' => 'Estado', 'label' => false, 'append' => '<span class"glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
-	<div class="col-md-4"><?php echo $this->Form->control('cidade', ['placeholder' => 'Cidade', 'label' => false, 'append' => '<span class"glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
+	<div class="col-md-4"><?php echo $this->Form->control('pais', ['placeholder' => 'País', 'label' => false, 'append' => '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
+	<div class="col-md-4"><?php echo $this->Form->control('estado', ['placeholder' => 'Estado', 'label' => false, 'append' => '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
+	<div class="col-md-4"><?php echo $this->Form->control('cidade', ['placeholder' => 'Cidade', 'label' => false, 'append' => '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>']); ?></div>
 </div>
 <?php
 echo $this->Form->end();

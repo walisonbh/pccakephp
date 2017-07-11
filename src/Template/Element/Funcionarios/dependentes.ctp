@@ -83,10 +83,8 @@ $(function(){
 	});
 });
 </script>
-<?php
-echo $this->Html->link('Novo', '#', ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#modal-dependentes']);
-?>
 <h2>Dependentes</h2>
+<?php echo $this->Html->link('Novo', '#', ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#modal-dependentes']); ?>
 <table id="tabela-dependentes" class="table">
 	<thead>
 		<tr>
@@ -127,4 +125,3 @@ echo $this->Modal->end([
 	$this->Form->button('Salvar', ['bootstrap-type' => 'primary', 'id' => 'salvar-dependente']),
 	$this->Form->button('Cancelar', ['data-dismiss' => 'modal'])
 ]);
-?>

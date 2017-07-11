@@ -84,7 +84,7 @@ $(function(){
 	});
 });
 </script>
-<h2>Anexos do Funcionário</h2>
+<h2>Anexos</h2>
 <h3>Memorando</h3>
 <?php echo $this->Html->link('Novo', '#', ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#modal-memorando']); ?>
 <table id="tabela-memorando" class="table">
