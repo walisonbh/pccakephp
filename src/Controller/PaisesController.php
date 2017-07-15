@@ -20,11 +20,28 @@ class PaisesController extends AppController {
 
 	public function cadastrar() {
 		$pais = $this->Paises->newEntity();
-		
+debug($this->request->getData());
 		if( $this->request->is('post') ) {
-			$this->Paises->patchEntities($pais, $this->request->getData());
-			if( $this->Paises->save($pais) )
+			$this->Paises->patchEntity($pais, $this->request->getData(), [
+					'associated' => [
+						'Estados' => [
+							'Cidades'
+						],
+						
+					]
+				]
+			);
+			if( $this->Paises->save($pais, [
+					'associated' => [
+						'Estados' => [
+							'Cidades'
+						],
+						
+					]
+				]) ) {
 				$this->Flash->success('O país foi salvo com sucesso!');
+//				$this->redirect('/paises');
+			}
 			else
 				$this->Flash->error('Houve um erro ao tentar salvar o país.');
 		}
@@ -36,7 +53,14 @@ class PaisesController extends AppController {
 		$pais = $this->Paises->get($this->request->getData('id'));
 		
 		if( $this->request->is('post') && $this->request->getData('btn-salvar') == 'salvar' ) {
-			$this->Paises->patchEntities($pais, $this->request->getData());
+			$this->Paises->patchEntity($pais, $this->request->getData(), [
+					'associated' => [
+						'Estados' => [
+							'Cidades'
+						],
+					]
+				]
+			);
 			if( $this->Paises->save($pais) )
 				$this->Flash->success('O país foi salvo com sucesso!');
 			else
