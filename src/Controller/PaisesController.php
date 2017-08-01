@@ -9,22 +9,55 @@ namespace App\Controller;
  * @property PaisesTable $Paises Description
  */
 class PaisesController extends AppController {
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function initialize() {
 		parent::initialize();
 		$this->loadComponent('RequestHandler');
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function index() {
-		$this->set('paises', $this->paginate('Paises'));
+		$conditions = [];
+
+		if( $this->request->is('post') )
+			$conditions = $this->request->getData();
+		
+		$this->set('paises', $this->paginate('Paises', ['conditions' => $conditions]));
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function cadastrar() {
 		$pais = $this->Paises->newEntity();
-		
+
 		if( $this->request->is('post') ) {
-			$this->Paises->patchEntities($pais, $this->request->getData());
-			if( $this->Paises->save($pais) )
+			$this->Paises->patchEntity($pais, $this->request->getData(), [
+					'associated' => [
+						'Estados',
+						'Estados.Cidades'
+					]
+				]
+			);
+			if( $this->Paises->save($pais, [
+					'associated' => [
+						'Estados',
+						'Estados.Cidades'
+					]
+				]) ) {
 				$this->Flash->success('O país foi salvo com sucesso!');
+				$this->redirect('/paises');
+			}
 			else
 				$this->Flash->error('Houve um erro ao tentar salvar o país.');
 		}
@@ -32,13 +65,36 @@ class PaisesController extends AppController {
 		$this->set('pais', $pais);
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function editar() {
-		$pais = $this->Paises->get($this->request->getData('id'));
-		
-		if( $this->request->is('post') && $this->request->getData('btn-salvar') == 'salvar' ) {
-			$this->Paises->patchEntities($pais, $this->request->getData());
-			if( $this->Paises->save($pais) )
+		$pais = $this->Paises->get($this->request->getData('id'), [
+			'contain' => [
+				'Estados',
+				'Estados.Cidades'
+			]
+		]);
+
+		if( $this->request->getData('btn-salvar') == 'salvar' ) {
+			$this->Paises->patchEntity($pais, $this->request->getData(), [
+					'associated' => [
+						'Estados',
+						'Estados.Cidades'
+					]
+				]
+			);
+			if( $this->Paises->save($pais, [
+				'associated' => [
+					'Estados',
+					'Estados.Cidades'
+				]
+			]) ){
 				$this->Flash->success('O país foi salvo com sucesso!');
+//				$this->redirect('/paises');
+			}
 			else
 				$this->Flash->error('Houve um erro ao tentar salvar o país.');
 		}
@@ -46,12 +102,45 @@ class PaisesController extends AppController {
 		$this->set('pais', $pais);
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function visualizar() {
 		$pais = $this->Paises->get($this->request->getData('id'));
 		
 		$this->set('pais', $pais);
 	}
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public function excluir(){
+		$pais = $this->Paises->get($this->request->getData('id'));
 
+//		$pais = $this->Paises->get($this->request->getData('id'), [
+//			'contain' => [
+//				'Estados',
+//				'Estados.Cidades'
+//			]
+//		]);
+		
+		if( $this->Paises->delete($pais) )
+			$this->Flash->success('O país foi apagado com sucesso!');
+		else
+			$this->Flash->error('Houve um erro ao tentar apagar o país.');
+		
+//		$this->redirect(['action' => 'index']);
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public function ajaxPesquisarPaises(){
 		$this->viewBuilder()->autoLayout(false);
 
