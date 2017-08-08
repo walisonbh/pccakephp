@@ -48,7 +48,7 @@ echo $this->Form->end();
 			<td><?php echo h($funcionario->salario) ?></td>
 			<td><?php echo $this->Html->image('data:image/png;base64,' . $funcionario->imagem, ['alt' => 'Foto', 'Title' => 'Foto']) ?></td>
 			<td><?php echo h($funcionario->cursos) ?></td>
-			<td><?php echo $this->Form->postLink('Cursos', ['action' => 'cursos'])?></td>
+			<td><?php echo $this->Form->postLink('Cursos', ['action' => 'cursos'], ['class' => 'btn btn-primary'])?></td>
 		</tr>		
 		<?php
 			}
@@ -56,4 +56,4 @@ echo $this->Form->end();
 		?>
 	</tbody>
 </table>
-<?php //debug($this->request->session()->read()); ?>
+<?php debug($this->request->session()->read()); ?>

@@ -16,7 +16,7 @@ class FuncionariosController extends AppController {
 	 */
 	public function index() {
 		$this->set('funcionarios', $this->Funcionarios->find('all')->contain(['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']));
-//		$this->request->session()->destroy();
+		$this->request->session()->destroy();
 	}
 
 	/**
@@ -30,13 +30,7 @@ class FuncionariosController extends AppController {
 		if ($this->request->is('post')) {
 			$session = (count($this->request->session()->read($this->request->getData('uuid'))) > 0) ? $this->request->session()->read($this->request->getData('uuid')) : [];
 
-//debug($session);
-//debug($this->request->getData());
-
 			$dadosSalvar = array_merge($this->request->getData(), $session);
-
-//debug($dadosSalvar);
-//debug($funcionario);
 
 			$funcionario = $this->Funcionarios->patchEntity($funcionario, $dadosSalvar, [
 					'associated' => [
@@ -47,9 +41,6 @@ class FuncionariosController extends AppController {
 					]
 				]
 			);
-
-//debug($funcionario);
-//exit();
 
 			if ( $this->Funcionarios->save($funcionario, [
 					'associated' => [
@@ -267,5 +258,19 @@ class FuncionariosController extends AppController {
 			throw new \Exception('O dependente selecionado não existe.');
 
 		$this->request->session()->delete($this->request->getData('uuid') . '.dependentes.' . $this->request->getData('id'));
+	}
+	
+	public function endereco(){
+		$endereco = $this->Funcionarios->FuncionariosLogradouros->newEntity();
+		if ($this->request->is('post')) {
+debug($this->request->getData());
+			$this->Funcionarios->FuncionariosLogradouros->patchEntity($endereco, $this->request->getData());
+debug($endereco);
+		}
+		
+		$funcionarios = $this->Funcionarios->find('list');
+debug($funcionarios->toArray());
+		$this->set('endereco', $endereco);
+		$this->set('funcionarios', $funcionarios);
 	}
 }
