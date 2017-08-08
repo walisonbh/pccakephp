@@ -66,12 +66,13 @@ $(function(){
 
 	$('body').on('click', 'a[id^=dependentes-apagar-]', function(){
 		var dadosApagar = this.id.split('-');
-		var apagar = this;
-		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-dependentes/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
-			$(apagar).parent().parent().remove();
-		}).fail(function() {
-			alert( "O dependente informado não existe." );
-		});
+//		var apagar = this;
+//		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-dependentes/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
+//			$(apagar).parent().parent().remove();
+//		}).fail(function() {
+//			alert( "O dependente informado não existe." );
+//		});
+		$(this).parent().parent().remove();
 	});
 
 	$('body').on('click', 'a[id^=dependentes-editar-]', function(){
@@ -95,15 +96,15 @@ $(function(){
 	</thead>
 	<tbody>
 		<?php
-		if( count($dependentes) > 0 ){
+		if( isset($dependentes) && count($dependentes) > 0 ){
 			foreach( $dependentes as $indice0 => $dependente ){
 		?>
 		<tr>
 			<td class="dependentes-nome"><?php echo $dependente->nome ?></td>
-			<td class="dependentes-arquivo"><?php echo $dependente->id ?></td>
+			<td class="dependentes-arquivo"><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($dependente->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
-				echo $this->Html->link('Editar', '#', ['id' => 'dependentes-editar-' . $dependente->id, 'class' => 'btn btn-info']);
+				echo $this->Html->link('Editar', '#', ['id' => 'dependentes-editar-' . $dependente->id, 'class' => 'btn btn-primary']);
 				echo $this->Html->link('Apagar', '#', ['id' => 'dependentes-apagar-' . $dependente->id, 'class' => 'btn btn-danger']);
 				?>
 			</td>

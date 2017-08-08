@@ -14,7 +14,7 @@ $(function(){
 				alert( "Nenhum endereço encontrado com os dados informados." );
 			});
 		}
-	});
+	}).keyup();
 });
 </script>
 <h2>Endereço</h2>

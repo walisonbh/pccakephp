@@ -83,19 +83,99 @@ class FuncionariosController extends AppController {
 	 * 
 	 */
 	public function editar() {
-		$funcionario = $this->Funcionarios->get($this->request->getData('id'));
+		$funcionario = $this->Funcionarios->get($this->request->getData('id'), [
+			'contain' => [
+				'Anexos',
+				'Dependentes',
+				'FuncionariosLogradouros' => [
+					'Logradouros'
+				],
+				'FuncionariosCursos' => [
+					'Cursos'
+				],
+				'Cidades' => [
+					'Estados' => [
+						'Paises'
+					]
+				]
+			]
+		]);
 
-		if ($this->request->is('post') && $this->request->getData('btn-salvar') == 'salvar') {
-			$this->Funcionarios->patchEntities($funcionario, $this->request->getData());
-			if ($this->Funcionarios->save($funcionario))
-				$this->Flash->success('O país foi salvo com sucesso!');
+		if ( $this->request->getData('btn-salvar') == 'salvar' ) {
+			$session = (count($this->request->session()->read($this->request->getData('uuid'))) > 0) ? $this->request->session()->read($this->request->getData('uuid')) : [];
+
+			$dadosSalvar = array_merge($this->request->getData(), $session);
+
+			$this->Funcionarios->patchEntity($funcionario, $this->request->getData(), [
+					'associated' => [
+						'Anexos', 
+						'Dependentes',
+						'FuncionariosLogradouros',
+						'FuncionariosCursos',
+					]
+				]
+			);
+
+			if ( $this->Funcionarios->save($funcionario, [
+					'associated' => [
+						'Anexos', 
+						'Dependentes',
+						'FuncionariosLogradouros',
+						'FuncionariosCursos',
+					]
+				]) ) {
+				$this->Flash->success('O funcionário foi salvo com sucesso!');
+			}
 			else
-				$this->Flash->error('Houve um erro ao tentar salvar o país.');
+				$this->Flash->error('Houve um erro ao tentar salvar o funcionário.');
 		}
 
-//		$cursos = $this->Funcionarios->FuncionariosCursos->Cursos->find('list');
+		// ID único
+		$uuid = uniqid("uuidf");
+		
+		// Montar sessão
+		$this->montarSessao($uuid, $funcionario);
 
+		// Relacionamentos com funcionário
+		$cursos			= $this->Funcionarios->FuncionariosCursos->Cursos->find('list');
+		$funcionarioCursos	= $funcionario->funcionarios_cursos;
+		$anexos			= $funcionario->anexos;
+		$dependentes		= $funcionario->dependentes;
+
+		// Injetando dado no form
+		$funcionario->cep	= @$funcionario->funcionarios_logradouros[0]->logradouro->cep;
+
+		$this->set('uuid', $uuid);
 		$this->set('funcionario', $funcionario);
+		$this->set('cursos', $cursos);
+		$this->set('anexos', $anexos);
+		$this->set('funcionarioCursos', $funcionarioCursos);
+		$this->set('dependentes', $dependentes);
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public function excluir(){
+//		$funcionario = $this->Funcionarios->get($this->request->getData('id'));
+
+		$funcionario = $this->Funcionarios->get($this->request->getData('id'), [
+			'contain' => [
+				'Anexos',
+				'Dependentes',
+				'FuncionariosLogradouros',
+				'FuncionariosCursos',
+			]
+		]);
+		
+		if( $this->Funcionarios->delete($funcionario) )
+			$this->Flash->success('O funcionário foi apagado com sucesso!');
+		else
+			$this->Flash->error('Houve um erro ao tentar apagar o funcionário.');
+		
+//		$this->redirect(['action' => 'index']);
 	}
 
 	/**
@@ -260,17 +340,7 @@ class FuncionariosController extends AppController {
 		$this->request->session()->delete($this->request->getData('uuid') . '.dependentes.' . $this->request->getData('id'));
 	}
 	
-	public function endereco(){
-		$endereco = $this->Funcionarios->FuncionariosLogradouros->newEntity();
-		if ($this->request->is('post')) {
-debug($this->request->getData());
-			$this->Funcionarios->FuncionariosLogradouros->patchEntity($endereco, $this->request->getData());
-debug($endereco);
-		}
-		
-		$funcionarios = $this->Funcionarios->find('list');
-debug($funcionarios->toArray());
-		$this->set('endereco', $endereco);
-		$this->set('funcionarios', $funcionarios);
+	public function montarSessao($uid, $funcionario){
+
 	}
 }

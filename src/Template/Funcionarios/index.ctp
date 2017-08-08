@@ -32,7 +32,7 @@ echo $this->Form->end();
 			<th>Matrícula</th>
 			<th>Salário</th>
 			<th>Foto</th>
-			<th>Cursos</th>
+			<!--<th>Cursos</th>-->
 			<th></th>
 		</tr>
 	</thead>
@@ -46,9 +46,14 @@ echo $this->Form->end();
 			<td><?php echo h($funcionario->cpf) ?></td>
 			<td><?php echo h($funcionario->matricula) ?></td>
 			<td><?php echo h($funcionario->salario) ?></td>
-			<td><?php echo $this->Html->image('data:image/png;base64,' . $funcionario->imagem, ['alt' => 'Foto', 'Title' => 'Foto']) ?></td>
-			<td><?php echo h($funcionario->cursos) ?></td>
-			<td><?php echo $this->Form->postLink('Cursos', ['action' => 'cursos'], ['class' => 'btn btn-primary'])?></td>
+			<td><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($funcionario->imagem)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
+			<!--<td><?php echo h($funcionario->cursos) ?></td>-->
+			<td>
+				<?php
+				echo $this->Form->postLink('Editar', ['action' => 'editar'], ['class' => 'btn btn-primary', 'data' => ['id' => $funcionario->id]]) . ' ';
+				echo $this->Form->postLink('Cursos', ['action' => 'cursos'], ['class' => 'btn btn-info']);
+				?>
+			</td>
 		</tr>		
 		<?php
 			}
@@ -56,4 +61,4 @@ echo $this->Form->end();
 		?>
 	</tbody>
 </table>
-<?php debug($this->request->session()->read()); ?>
+<?php //debug($this->request->session()->read()); ?>

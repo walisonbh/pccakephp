@@ -75,12 +75,13 @@ $(function(){
 
 	$('body').on('click', 'a[id^=anexos-apagar-]', function(){
 		var dadosApagar = this.id.split('-');
-		var apagar = this;
-		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-anexos/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
-			$(apagar).parent().parent().remove();
-		}).fail(function() {
-			alert( "O anexo informado não existe." );
-		});
+//		var apagar = this;
+//		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-anexos/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
+//			$(apagar).parent().parent().remove();
+//		}).fail(function() {
+//			alert( "O anexo informado não existe." );
+//		});
+		$(this).parent().parent().remove();
 	});
 });
 </script>
@@ -99,18 +100,20 @@ $(function(){
 	</thead>
 	<tbody>
 		<?php
-		if( count($memorandos) > 0 ) {
-			foreach( $memorandos as $indice1 => $memorando ) {
+		if( isset($anexos) && count($anexos) > 0 ) {
+			foreach( $anexos as $indice1 => $memorando ) {
+				if( $memorando->anexotipo != 'memorando' )
+					continue;
 		?>
 		<tr>
 			<td><?php echo $memorando->nome ?></td>
 			<td><?php echo $memorando->formato ?></td>
 			<td><?php echo $memorando->created ?></td>
-			<td><?php echo $memorando->id ?></td>
+			<td><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($memorando->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
 				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $memorando->id], ['id' => 'baixar-' . $memorando->id, 'class' => 'btn btn-primary']);
-				echo $this->Html->link('apagar', '#', ['id' => 'apagar-' . $memorando->id, 'class' => 'btn btn-danger']);
+				echo $this->Html->link('apagar', '#', ['id' => 'anexos-apagar-' . $memorando->id, 'class' => 'btn btn-danger']);
 				?>
 			</td>
 		</tr>
@@ -134,14 +137,16 @@ $(function(){
 	</thead>
 	<tbody>
 		<?php
-		if( count($oficios) > 0 ) {
-			foreach( $oficios as $indice2 => $oficio ) {
+		if( isset($anexos) && count($anexos) > 0 ) {
+			foreach( $anexos as $indice2 => $oficio ) {
+				if( $oficio->anexotipo != 'oficio' )
+					continue;
 		?>
 		<tr>
 			<td><?php echo $oficio->nome ?></td>
 			<td><?php echo $oficio->formato ?></td>
 			<td><?php echo $oficio->created ?></td>
-			<td><?php echo $oficio->id ?></td>
+			<td><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($oficio->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
 				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $oficio->id], ['id' => 'anexos-baixar-' . $oficio->id, 'class' => 'btn btn-primary']);

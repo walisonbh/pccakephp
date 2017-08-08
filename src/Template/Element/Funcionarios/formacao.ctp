@@ -36,11 +36,11 @@ $(function(){
 	</thead>
 	<tbody>
 		<?php
-		if( count($cursosFuncionario) > 0 ){
-			foreach( $cursosFuncionario as $indice0 => $curso ){
+		if( isset($funcionarioCursos) && count($funcionarioCursos) > 0 ){
+			foreach( $funcionarioCursos as $indice0 => $curso ){
 		?>
 		<tr>
-			<td><?php echo $curso->nome ?></td>
+			<td><?php echo $curso->curso->nome ?></td>
 			<td class="text-center" width="300">
 				<?php echo $this->Html->link('Apagar', '#', ['id' => 'cursos-apagar-' . $curso->id, 'class' => 'btn btn-danger']); ?>
 				<?php echo $this->Form->hidden('funcionarios_cursos.' . $indice0 . '.curso_id') ?>

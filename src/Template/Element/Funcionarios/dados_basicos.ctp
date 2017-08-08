@@ -4,6 +4,11 @@ $(function(){
 //		$('<input type="hidden" name="" />').insertBefore($(this).parent().parent());
 //		$('<div class="list-group"><a href="#" class="list-group-item" data-id="" data-label="">Teste</a></div>').insertAfter($(this).parent().parent());
 //	});
+
+	var cidade = {id: '<?php echo @$funcionario->cidade->id ?>', nome: '<?php echo @$funcionario->cidade->nome ?>'};
+	var estado = {id: '<?php echo @$funcionario->cidade->estado->id ?>', nome: '<?php echo @$funcionario->cidade->estado->nome ?>'};
+	var pais = {id: '<?php echo @$funcionario->cidade->estado->paise->id ?>', nome: '<?php echo @$funcionario->cidade->estado->paise->nome ?>'};
+	
 	$('#pais').bootcomplete({
 		url:'<?php echo $this->Url->build('/paises/ajax-pesquisar-paises/') ?>',
 		method: 'post',
@@ -27,6 +32,13 @@ $(function(){
 		idFieldName: 'cidade_id',
 		formParams: {estado_id: $('#hidden-field-estado_id'), cidade : $('#cidade')}
 	});
+
+	$('#hidden-field-pais_id').val(pais.id);
+	$('#pais').val(pais.nome);
+	$('#hidden-field-estado_id').val(estado.id);
+	$('#estado').val(estado.nome);
+	$('#hidden-field-cidade_id').val(cidade.id);
+	$('#cidade').val(cidade.nome);
 });
 </script>
 
