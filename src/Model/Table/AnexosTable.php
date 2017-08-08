@@ -56,7 +56,7 @@ class AnexosTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->notEmpty('id', 'create');
 
         $validator
             ->requirePresence('anexotipo', 'create')

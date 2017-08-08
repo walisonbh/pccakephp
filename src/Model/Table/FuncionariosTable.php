@@ -48,7 +48,7 @@ class FuncionariosTable extends Table {
 		]);
 
 		$this->hasMany('Anexos', [
-			'foreignKey' => 'anexo_id',
+			'foreignKey' => 'funcionario_id',
 			'saveStrategy' => 'replace'
 		]);
 		

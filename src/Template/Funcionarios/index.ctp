@@ -5,7 +5,10 @@
 </script>
 <?php
 echo $this->Html->tag('h1', 'Funcionários');
-echo $this->Html->tag('div', $this->Html->link('Pesquisar', '#', ['class' => 'btn btn-info']) . $this->Html->link('Novo', ['action' => 'cadastrar'], ['class' => 'btn btn-success']));
+echo $this->Html->tag('div', 
+	$this->Html->link('Pesquisar', '#', ['class' => 'btn btn-info']) . 
+	$this->Html->link('Novo', ['action' => 'cadastrar'], ['class' => 'btn btn-success'])
+);
 echo $this->Form->create(null, ['horizontal' => true, 'id' => 'form-pesquisar-funcionario']);
 ?>
 <div class="row">
@@ -43,7 +46,7 @@ echo $this->Form->end();
 			<td><?php echo h($funcionario->cpf) ?></td>
 			<td><?php echo h($funcionario->matricula) ?></td>
 			<td><?php echo h($funcionario->salario) ?></td>
-			<td><?php echo h($funcionario->fotos->id) ?></td>
+			<td><?php echo $this->Html->image('data:image/png;base64,' . $funcionario->imagem, ['alt' => 'Foto', 'Title' => 'Foto']) ?></td>
 			<td><?php echo h($funcionario->cursos) ?></td>
 			<td><?php echo $this->Form->postLink('Cursos', ['action' => 'cursos'])?></td>
 		</tr>		
@@ -53,4 +56,4 @@ echo $this->Form->end();
 		?>
 	</tbody>
 </table>
-<?php debug($this->request->session()->read()); ?>
+<?php //debug($this->request->session()->read()); ?>

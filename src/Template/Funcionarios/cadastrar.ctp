@@ -1,10 +1,10 @@
-<?php echo $this->Form->create($funcionario); ?>
+<?php echo $this->Form->create($funcionario, ['novalidate' => true]); ?>
 <div>
 	<?php
 	echo $this->Form->button('Salvar', ['class' => 'btn btn-primary']);
-	echo $this->Html->link('Novo', '#', ['class' => 'btn btn-success']);
+	echo $this->Html->link('Novo', ['action' => 'cadastrar'], ['class' => 'btn btn-success']);
 	echo $this->Html->link('Apagar', '#', ['class' => 'btn btn-danger']);
-	echo $this->Html->link('Abrir', '#', ['class' => 'btn btn-info']);
+	echo $this->Html->link('Abrir', ['action' => 'index'], ['class' => 'btn btn-info']);
 	?>
 </div>
 <ul class="nav nav-tabs nav-justified">

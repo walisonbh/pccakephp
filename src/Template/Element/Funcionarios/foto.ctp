@@ -49,6 +49,4 @@ $(function(){
 echo $this->Html->link('Enviar Imagem', '#', ['id' => 'enviar-foto', 'class' => 'btn btn-primary']);
 echo $this->Html->tag('div', $this->Html->image('cake-logo.png', ['id' => 'funcionario-imagem', 'class' => "img-rounded"]));
 //echo $this->Form->hidden('foto', ['id' => 'input-funcionario-imagem']);
-echo $this->Form->file('foto_', [
-	'id' => 'foto-input'
-]);
+echo $this->Form->file('foto_', ['id' => 'foto-input']);

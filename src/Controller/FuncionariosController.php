@@ -29,19 +29,47 @@ class FuncionariosController extends AppController {
 
 		if ($this->request->is('post')) {
 			$session = (count($this->request->session()->read($this->request->getData('uuid'))) > 0) ? $this->request->session()->read($this->request->getData('uuid')) : [];
+
+//debug($session);
+//debug($this->request->getData());
+
 			$dadosSalvar = array_merge($this->request->getData(), $session);
 
-			$funcionario = $this->Funcionarios->patchEntity($funcionario, $dadosSalvar, ['associated' => ['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']]);
-			if ( $this->Funcionarios->save($funcionario) ) {
+//debug($dadosSalvar);
+//debug($funcionario);
+
+			$funcionario = $this->Funcionarios->patchEntity($funcionario, $dadosSalvar, [
+					'associated' => [
+						'Anexos', 
+						'Dependentes',
+						'FuncionariosLogradouros',
+						'FuncionariosCursos',
+					]
+				]
+			);
+
+//debug($funcionario);
+//exit();
+
+			if ( $this->Funcionarios->save($funcionario, [
+					'associated' => [
+						'Anexos', 
+						'Dependentes',
+						'FuncionariosLogradouros',
+						'FuncionariosCursos',
+					]
+				]) ) {
 				$this->Flash->success('O funcionário foi salvo com sucesso!');
 				$this->request->session()->delete('funcionario.' . $this->request->getData['uuid']);
-				$this->redirect('/index');
-			} else
+//				$this->redirect('/index');
+			} else {
 				$this->Flash->error('Houve um erro ao tentar salvar os dados do funcionário.');
+				debug($funcionario->getErrors());
+			}
 		}
 
 		$uuid = uniqid("uuidf");
-		
+
 		// Relacionamentos com funcionário
 		$cursos = $this->Funcionarios->FuncionariosCursos->Cursos->find('list');
 		$cursosFuncionario = [];
@@ -108,7 +136,7 @@ class FuncionariosController extends AppController {
 			try {
 				$resposta = $this->extrairInformacoesArquivo($this->request->getData('foto'), ['image/jpeg', 'image/png']);
 
-				$this->request->session()->write($this->request->getData('uuid') . '.foto', $resposta['bytes']);
+				$this->request->session()->write($this->request->getData('uuid') . '.imagem', $resposta['bytes']);
 			} catch (\Exception $ex) {
 				$this->response = $this->response->withStatus($ex->getCode());
 				$resposta = ['erro' => ['mensagem' => $ex->getMessage()]];

@@ -59,10 +59,6 @@ class DependentesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('anexotipo', 'create')
-            ->notEmpty('anexotipo');
-
-        $validator
             ->requirePresence('application_type', 'create')
             ->notEmpty('application_type');
 
