@@ -11,7 +11,8 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "~1.0",
         "holt59/cakephp3-bootstrap-helpers": "dev-master",
-        "cakecoded/ckeditor": "^1.0"
+        "cakecoded/ckeditor": "^1.0",
+        "mpdf/mpdf": "^6.1"
     },
     "require-dev": {
         "psy/psysh": "@stable",

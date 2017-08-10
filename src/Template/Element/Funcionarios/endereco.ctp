@@ -19,7 +19,7 @@ $(function(){
 </script>
 <h2>Endereço</h2>
 <?php
-echo $this->Form->control('cep', ['label' => 'CEP', 'id' => 'logradouros-cep']);
+echo $this->Form->control('funcionarios_logradouros.0.cep', ['label' => 'CEP', 'id' => 'logradouros-cep']);
 echo $this->Form->hidden('funcionarios_logradouros.0.logradouro_id', ['id' => 'endereco-id']);
 echo $this->Form->control('funcionarios_logradouros.0.numero', ['label' => 'Número', 'id' => 'logradouros-cep']);
 ?>

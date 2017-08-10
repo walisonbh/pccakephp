@@ -66,13 +66,12 @@ $(function(){
 
 	$('body').on('click', 'a[id^=dependentes-apagar-]', function(){
 		var dadosApagar = this.id.split('-');
-//		var apagar = this;
-//		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-dependentes/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
-//			$(apagar).parent().parent().remove();
-//		}).fail(function() {
-//			alert( "O dependente informado não existe." );
-//		});
-		$(this).parent().parent().remove();
+		var apagar = this;
+		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-dependentes/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
+			$(apagar).parent().parent().remove();
+		}).fail(function() {
+			alert( "O dependente informado não existe." );
+		});
 	});
 
 	$('body').on('click', 'a[id^=dependentes-editar-]', function(){
@@ -104,8 +103,9 @@ $(function(){
 			<td class="dependentes-arquivo"><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($dependente->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
-				echo $this->Html->link('Editar', '#', ['id' => 'dependentes-editar-' . $dependente->id, 'class' => 'btn btn-primary']);
-				echo $this->Html->link('Apagar', '#', ['id' => 'dependentes-apagar-' . $dependente->id, 'class' => 'btn btn-danger']);
+				echo $this->Html->link('Editar', '#', ['id' => 'dependentes-editar-' . $indice0, 'class' => 'btn btn-primary']);
+				echo $this->Html->link('Apagar', '#', ['id' => 'dependentes-apagar-' . $indice0, 'class' => 'btn btn-danger']);
+				echo $this->Form->hidden('dependentes.' . $indice0 . '.id');
 				?>
 			</td>
 		</tr>
@@ -118,9 +118,9 @@ $(function(){
 <?php
 echo $this->Modal->create("Adicionar Dependentes", ['id' => 'modal-dependentes']);
 
-echo $this->Form->hidden('dependentes.id_', ['id' => 'dependentes-id']);
-echo $this->Form->control('dependentes.nome_', ['id' => 'dependentes-nome']);
-echo $this->Form->file('dependentes.bytes_', ['id' => 'dependentes-bytes']);
+echo $this->Form->hidden('dependentes_.id_', ['id' => 'dependentes-id']);
+echo $this->Form->control('dependentes_.nome_', ['id' => 'dependentes-nome']);
+echo $this->Form->file('dependentes_.bytes_', ['id' => 'dependentes-bytes']);
 
 echo $this->Modal->end([
 	$this->Html->link('Salvar', '#', ['class' => 'btn btn-primary', 'bootstrap-type' => 'primary', 'id' => 'salvar-dependente']),

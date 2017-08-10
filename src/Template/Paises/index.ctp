@@ -7,15 +7,17 @@ $(function(){
 })
 </script>
 <?php
-echo $this->Html->tag('h1', 'País');
-echo $this->Html->tag('div',
-	$this->Html->link('Pesquisar', '#', ['id' => 'btn-pesquisar-pais', 'class' => 'btn btn-info']) .
-	$this->Html->link('Novo', ['action' => 'cadastrar'], ['class' => 'btn btn-success']) .
-	$this->Html->link('Exportar PDF', ['action' => 'index', 'pdf'], ['class' => 'btn btn-primary'])
-);
-echo $this->Form->create(null, ['id' => 'form-pesquisar-pais']);
-echo $this->Form->control('nome');
-echo $this->Form->end();
+if( empty($pdf) ) {
+	echo $this->Html->tag('h1', 'País');
+	echo $this->Html->tag('div',
+		$this->Html->link('Pesquisar', '#', ['id' => 'btn-pesquisar-pais', 'class' => 'btn btn-info']) .
+		$this->Html->link('Novo', ['action' => 'cadastrar'], ['class' => 'btn btn-success']) .
+		$this->Html->link('Exportar PDF', ['action' => 'index', 'pdf'], ['class' => 'btn btn-primary'])
+	);
+	echo $this->Form->create(null, ['id' => 'form-pesquisar-pais']);
+	echo $this->Form->control('nome');
+	echo $this->Form->end();
+}
 ?>
 <table class="table">
 	<thead>

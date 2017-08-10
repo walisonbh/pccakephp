@@ -64,8 +64,12 @@ class FuncionariosLogradourosTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->requirePresence('cep', 'create')
+            ->notEmpty('cep', 'O campo "CEP" é de preenchimento obrigatório.');
+
+        $validator
             ->requirePresence('numero', 'create')
-            ->notEmpty('numero');
+            ->notEmpty('numero', 'O campo "Número" é de preenchimento obrigatório.');
 
         return $validator;
     }

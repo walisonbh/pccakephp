@@ -1,7 +1,31 @@
 <script>
-	$(function(){
-		$('#form-pesquisar-funcionario .text div.col-md-10').attr('class', 'col-md-12')
+$(function(){
+	$('#form-pesquisar-funcionario .text div.col-md-10').attr('class', 'col-md-12')
+
+	$('#pais').bootcomplete({
+		url:'<?php echo $this->Url->build('/paises/ajax-pesquisar-paises/') ?>',
+		method: 'post',
+		minLength: 3,
+		idFieldName: 'pais_id',
+		formParams: { pais : $('#pais') }
 	});
+
+	$('#estado').bootcomplete({
+		url:'<?php echo $this->Url->build('/estados/ajax-pesquisar-estados/') ?>',
+		method: 'post',
+		minLength: 3,
+		idFieldName: 'estado_id',
+		formParams: {pais_id: $('#hidden-field-pais_id'), estado : $('#estado')}
+	});
+
+	$('#cidade').bootcomplete({
+		url:'<?php echo $this->Url->build('/cidades/ajax-pesquisar-cidades/') ?>',
+		method: 'post',
+		minLength: 3,
+		idFieldName: 'cidade_id',
+		formParams: {estado_id: $('#hidden-field-estado_id'), cidade : $('#cidade')}
+	});
+});
 </script>
 <?php
 echo $this->Html->tag('h1', 'Funcionários');
@@ -61,4 +85,4 @@ echo $this->Form->end();
 		?>
 	</tbody>
 </table>
-<?php //debug($this->request->session()->read()); ?>
+<?php debug($this->request->session()->read()); ?>

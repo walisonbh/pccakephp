@@ -15,6 +15,8 @@ class EstadosController extends AppController {
 		$conditions = [];
 		$retorno = [];
 
+		if( $this->request->getData('pais_id') != '' )
+			$conditions['pais_id'] = $this->request->getData('pais_id');
 		if( $this->request->getData('estado') != '' )
 			$conditions['nome LIKE '] = '%' . $this->request->getData('estado') . '%';
 

@@ -16,6 +16,8 @@ class CidadesController extends AppController {
 		$conditions = [];
 		$retorno = [];
 
+		if( $this->request->getData('estado_id') != '' )
+			$conditions['estado_id'] = $this->request->getData('estado_id');
 		if( $this->request->getData('cidade') != '' )
 			$conditions['nome LIKE '] = '%' . $this->request->getData('cidade') . '%';
 

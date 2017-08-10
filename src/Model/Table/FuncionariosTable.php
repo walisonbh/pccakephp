@@ -85,15 +85,15 @@ class FuncionariosTable extends Table {
 
 		$validator
 			->requirePresence('nome', 'create')
-			->notEmpty('nome');
+			->notEmpty('nome', 'O campo "Nome" é de preenchimento obrigatório.');
 
 		$validator
 			->requirePresence('cpf', 'create')
-			->notEmpty('cpf');
+			->notEmpty('cpf', 'O campo "CPF" é de preenchimento obrigatório.');
 
 		$validator
 			->requirePresence('matricula', 'create')
-			->notEmpty('matricula');
+			->notEmpty('matricula', 'O campo "Matrícula" é de preenchimento obrigatório.');
 
 		$validator
 			->allowEmpty('estadocivil');

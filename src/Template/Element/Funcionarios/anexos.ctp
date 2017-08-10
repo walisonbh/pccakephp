@@ -75,13 +75,12 @@ $(function(){
 
 	$('body').on('click', 'a[id^=anexos-apagar-]', function(){
 		var dadosApagar = this.id.split('-');
-//		var apagar = this;
-//		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-anexos/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
-//			$(apagar).parent().parent().remove();
-//		}).fail(function() {
-//			alert( "O anexo informado não existe." );
-//		});
-		$(this).parent().parent().remove();
+		var apagar = this;
+		$.post('<?php echo $this->Url->build('/funcionarios/ajax-apagar-anexos/') ?>', {uuid: $('input[name=uuid]').val(), id: dadosApagar[2]}, function(data){
+			$(apagar).parent().parent().remove();
+		}).fail(function() {
+			alert( "O anexo informado não existe." );
+		});
 	});
 });
 </script>
@@ -112,8 +111,9 @@ $(function(){
 			<td><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($memorando->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
-				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $memorando->id], ['id' => 'baixar-' . $memorando->id, 'class' => 'btn btn-primary']);
-				echo $this->Html->link('apagar', '#', ['id' => 'anexos-apagar-' . $memorando->id, 'class' => 'btn btn-danger']);
+				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $indice1], ['id' => 'baixar-' . $indice1, 'class' => 'btn btn-primary']);
+				echo $this->Html->link('apagar', '#', ['id' => 'anexos-apagar-' . $indice1, 'class' => 'btn btn-danger']);
+				echo $this->Form->hidden('anexos.' . $indice1 . '.id');
 				?>
 			</td>
 		</tr>
@@ -149,8 +149,9 @@ $(function(){
 			<td><?php echo $this->Html->image('data:image/png;base64,' . base64_encode(@stream_get_contents($oficio->bytes)), ['alt' => 'Foto', 'Title' => 'Foto', 'width' => '100']) ?></td>
 			<td class="text-center">
 				<?php
-				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $oficio->id], ['id' => 'anexos-baixar-' . $oficio->id, 'class' => 'btn btn-primary']);
-				echo $this->Html->link('Apagar', '#', ['id' => 'anexos-apagar-' . $oficio->id, 'class' => 'btn btn-danger']);
+				echo $this->Html->link('Baixar', ['action' => 'baixar-anexo', $indice2], ['id' => 'anexos-baixar-' . $indice2, 'class' => 'btn btn-primary']);
+				echo $this->Html->link('Apagar', '#', ['id' => 'anexos-apagar-' . $indice2, 'class' => 'btn btn-danger']);
+				echo $this->Form->hidden('anexos.' . $indice2 . '.id');
 				?>
 			</td>
 		</tr>

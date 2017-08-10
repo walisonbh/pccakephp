@@ -24,13 +24,19 @@ class PaisesController extends AppController {
 	 * 
 	 * 
 	 */
-	public function index() {
+	public function index($pdf = null) {
 		$conditions = [];
 
 		if( $this->request->is('post') )
 			$conditions = $this->request->getData();
 		
 		$this->set('paises', $this->paginate('Paises', ['conditions' => $conditions]));
+		$this->set('pdf', $pdf);
+
+		if( $pdf ) {
+			$this->viewBuilder()->setLayout('pdf');
+			$this->render('pesquisa_pdf');
+		}
 	}
 
 	/**

@@ -31,18 +31,19 @@
 				//use existing id field
 			} else {
 				//there is no existing id field so create one
-				console.log(settings.idFieldName);
 				$('<input type="hidden" name="' + settings.idFieldName + '" id="hidden-field-' + settings.idFieldName + '" value="">').insertBefore($(this))
 			}
 		}
 		$('<div class="' + settings.menuClass + ' list-group"></div>').insertAfter($(this))
 
-		$(this).on("keyup", searchQuery);
-		$(this).on("focusout", hideThat)
-
 		var xhr;
-		var that = $(this)
-
+		var that = $(this);
+		var createdField = $('#hidden-field-' + settings.idFieldName);
+		
+		$(this).on('keypress, keyup', function(event){
+			eraseField(event);
+		});
+		
 		function hideThat() {
 			if ($('.list-group-item' + ':hover').length) {
 				return;
@@ -69,41 +70,22 @@
 				if (xhr && xhr.readyState != 4) {
 					xhr.abort();
 				}
-//
-//				xhr = $.ajax({
-//					type: settings.method,
-//					url: settings.url,
-//					data: Data,
-//					dataType: "json",
-//					success: function (json) {
-//						console.log(json);
-//						var results = ''
-//						$.each(json, function (i, j) {
-//							results += '<a href="#" class="list-group-item" data-id="' + j.id + '" data-label="' + j.label + '">' + j.label + '</a>'
-//						});
-//
-//						$(that).next('.' + settings.menuClass).html(results)
-//						$(that).next('.' + settings.menuClass).children().on("click", selectResult)
-//						$(that).next('.' + settings.menuClass).show()
-//
-//					}
-//				})
 
 				$.post(settings.url, Data, function(data){
 					var json = $.parseJSON(data);
-					console.log(json);
 					var results = ''
+
 					$.each(json, function (i, j) {
 						results += '<a href="#" class="list-group-item" data-id="' + j.id + '" data-label="' + j.label + '">' + j.label + '</a>'
 					});
 
-					$(that).next('.' + settings.menuClass).html(results)
-					$(that).next('.' + settings.menuClass).children().on("click", selectResult)
-					$(that).next('.' + settings.menuClass).show()
+					$(that).next('.' + settings.menuClass).html(results);
+					$(that).next('.' + settings.menuClass).children().on("click", selectResult);
+					$(that).next('.' + settings.menuClass).show();
 				});
 			}
 		}
-
+		
 		function selectResult() {
 			$(that).val($(this).data('label'))
 			if (settings.idField) {
@@ -122,6 +104,16 @@
 			$(that).next('.' + settings.menuClass).hide();
 			return false;
 		}
+		
+		function eraseField(event) {
+			var keycode =  event.keyCode ? event.keyCode : event.which;
+
+			if(keycode == 8 || keycode == 46)
+				$(createdField).val('');
+		}
+		
+		$(this).on("keyup", searchQuery);
+		$(this).on("focusout", hideThat);
 
 		return this;
 	};

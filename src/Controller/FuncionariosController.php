@@ -15,8 +15,13 @@ class FuncionariosController extends AppController {
 	 * 
 	 */
 	public function index() {
-		$this->set('funcionarios', $this->Funcionarios->find('all')->contain(['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']));
-		$this->request->session()->destroy();
+		$this->loadModel('Paises');
+
+		$funcionarios = $this->Funcionarios->find('all')->contain(['Anexos', 'Dependentes','FuncionariosCursos','FuncionariosLogradouros']);
+
+//		$this->request->session()->destroy();
+
+		$this->set('funcionarios', $funcionarios);
 	}
 
 	/**
@@ -52,10 +57,9 @@ class FuncionariosController extends AppController {
 				]) ) {
 				$this->Flash->success('O funcionário foi salvo com sucesso!');
 				$this->request->session()->delete('funcionario.' . $this->request->getData['uuid']);
-//				$this->redirect('/index');
+				$this->redirect(['action' => 'index']);
 			} else {
 				$this->Flash->error('Houve um erro ao tentar salvar os dados do funcionário.');
-				debug($funcionario->getErrors());
 			}
 		}
 
@@ -106,7 +110,7 @@ class FuncionariosController extends AppController {
 
 			$dadosSalvar = array_merge($this->request->getData(), $session);
 
-			$this->Funcionarios->patchEntity($funcionario, $this->request->getData(), [
+			$this->Funcionarios->patchEntity($funcionario, $dadosSalvar, [
 					'associated' => [
 						'Anexos', 
 						'Dependentes',
@@ -125,6 +129,7 @@ class FuncionariosController extends AppController {
 					]
 				]) ) {
 				$this->Flash->success('O funcionário foi salvo com sucesso!');
+				$this->redirect(['action' => 'index']);
 			}
 			else
 				$this->Flash->error('Houve um erro ao tentar salvar o funcionário.');
@@ -132,7 +137,7 @@ class FuncionariosController extends AppController {
 
 		// ID único
 		$uuid = uniqid("uuidf");
-		
+
 		// Montar sessão
 		$this->montarSessao($uuid, $funcionario);
 
@@ -341,6 +346,7 @@ class FuncionariosController extends AppController {
 	}
 	
 	public function montarSessao($uid, $funcionario){
-
+		$this->request->session()->write($uid . '.dependentes', $funcionario->dependentes);
+		$this->request->session()->write($uid . '.anexos', $funcionario->anexos);
 	}
 }
